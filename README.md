@@ -26,3 +26,10 @@
 ⣿⣿⣿⣿⣿⣿⣿⣿⡞⢿⣄⠈⠳⣄⠙⣿⡿⣿⣶⣄⠀⠀⠀⠈⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢴⣏⣿⠿⢃⣴⣿⣿⣗⢻⣿⣿⣟⡛⠀
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣿⣷⣦⣄⠱⠶⣶⣤⣌⠙⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣦⡿⠉⢠⣾⣿⣿⣿⢌⣇⢻⣿⣿⣿⣷
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⡙⠻⠿⠶⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡏⠁⣀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+
+# CWO7
+—UTFSM Check Digit Calculator
+
+-File: CW07/cw07.py
+
+-Calculates the UTFSM check digit for a given rol number.

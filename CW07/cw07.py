@@ -1,5 +1,5 @@
 #INPUT
-rol = input("Ingrese el rol sin guión ni dígito verificador (ej. 201012341): ")
+rol = input("Digite el rol sin guión ni dígito verificador (ej. 201012341): ")
 
 #PROCESS
 rol_invertido = ""
@@ -34,5 +34,5 @@ else:
     digito_verificador = str(resultado_resta)
 
 #OUTPUT
-print("El dígito verificador calculado es:", digito_verificador)
+print(f"El dígito verificador calculado es:{digito_verificador}")
 print("Rol completo:", rol + "-" + digito_verificador)
