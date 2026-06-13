@@ -2,7 +2,7 @@
 import math
 #INPUT
 #Functions and their exact integrals
-print("\n=== FUNCTIONS ===")
+print("FUNCTIONS")
 print("1. x^2 + 2x - 3   → [1,4]     = 27.00")
 print("2. 3x^3 - x^2 + 5 → [0,2]     = 21.33")
 print("3. sin(x)         → [0,π]     = 2.00")
@@ -35,7 +35,7 @@ else:
 print(f"\nFunction: {f}   Interval: [{a}, {b}]   Exact = {exact:.4f}")
 
 #Modes
-print("\n=== MODES ===")
+print("MODES")
 print("1. Default (n=100, Midpoint method)")
 print("2. Custom (you set n and method)")
 print("3. Auto-adjust (you set error tolerance)")
@@ -63,6 +63,7 @@ else:   # mode == "3" Auto-adjust
             for i in range(n):
                 x = a + i * h
                 area += eval(f.replace("x", str(x))) * h
+                
         elif auto_method == "RRM":
             for i in range(1, n+1):
                 x = a + i * h
@@ -82,30 +83,36 @@ else:   # mode == "3" Auto-adjust
         rel_err = abs(area - exact) / exact
         if rel_err < tol or n > 1000000:
             break
-        n *= 2   # double subintervals
+        n *= 2   # That means double subintervals
 
     
     method = auto_method
     print(f"Auto-adjust: reached n = {n}, rel error = {rel_err:.6f}")
 
-#compue integral using selected method and n
+# Here we compute integral using selected method and n
 if mode != "3":
     h = (b - a) / n
     area = 0.0
+    
     if method == "LRM":
         for i in range(n):
             x = a + i * h
             area += eval(f.replace("x", str(x))) * h
+            
     elif method == "RRM":
+        
         for i in range(1, n+1):
             x = a + i * h
             area += eval(f.replace("x", str(x))) * h
     elif method == "MPM":
+        
         for i in range(n):
             x = a + (i + 0.5) * h
             area += eval(f.replace("x", str(x))) * h
+            
     elif method == "TRAP":
         area = (h/2) * eval(f.replace("x", str(a)))
+    
         for i in range(1, n):
             x = a + i * h
             area += (h/2) * 2 * eval(f.replace("x", str(x)))
@@ -115,9 +122,7 @@ abs_err = abs(area - exact)
 rel_err = abs_err / exact
 
 #OUTPUT
-print("\n" + "="*50)
 print("RESULTS")
-print("="*50)
 print(f"Function: {f}")
 print(f"Interval: [{a}, {b}]")
 print(f"Method: {method}")
