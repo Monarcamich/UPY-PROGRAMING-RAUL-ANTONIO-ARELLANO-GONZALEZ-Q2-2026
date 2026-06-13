@@ -1,0 +1,53 @@
+#INPUT
+
+  DISPLAY function menu (1..6 with expressions, intervals, exact values)
+  READ choice
+  SET f_expr, a, b, exact according to choice
+
+  DISPLAY mode menu (1=Default, 2=Custom, 3=Auto-adjust)
+  READ mode
+  
+#PROCCESS
+  IF mode == 1 THEN
+      n = 100
+      method = "MPM"
+      compute integral with current n, method (store in area)
+
+  ELSE IF mode == 2 THEN
+      READ n
+      READ method (validate: LRM, RRM, MPM, TRAP)
+      compute integral with current n, method (store in area)
+
+  ELSE IF mode == 3 THEN
+      READ tolerance
+      READ auto_method
+      n = 10
+      REPEAT
+          h = (b-a)/n
+          area = 0
+          IF auto_method == "LRM":
+              FOR i = 0 TO n-1: x = a+i*h; area += eval(f_expr at x) * h
+          ELSE IF auto_method == "RRM":
+              FOR i = 1 TO n: x = a+i*h; area += eval(f_expr at x) * h
+          ELSE IF auto_method == "MPM":
+              FOR i = 0 TO n-1: x = a+(i+0.5)*h; area += eval(f_expr at x) * h
+          ELSE IF auto_method == "TRAP":
+              area = (h/2)*eval(f_expr at a)
+              FOR i = 1 TO n-1: x = a+i*h; area += (h/2)*2*eval(f_expr at x)
+              area += (h/2)*eval(f_expr at b)
+          rel_error = |area - exact| / |exact|
+          IF rel_error < tolerance OR n > 1000000 THEN break
+          n = n * 2
+      UNTIL condition met
+      method = auto_method
+
+  END IF
+
+  // If mode was 1 or 2, area already computed; if mode 3, area already computed inside loop
+  // But note: for mode 1/2 we computed area; for mode 3 area is from last iteration.
+
+  abs_error = |area - exact|
+  rel_error = abs_error / |exact|
+#OUTPUT
+  DISPLAY f_expr, interval, method, n, area, exact, abs_error, rel_error
+
