@@ -43,9 +43,6 @@
 
   END IF
 
-  // If mode was 1 or 2, area already computed; if mode 3, area already computed inside loop
-  // But note: for mode 1/2 we computed area; for mode 3 area is from last iteration.
-
   abs_error = |area - exact|
   rel_error = abs_error / |exact|
 #OUTPUT
