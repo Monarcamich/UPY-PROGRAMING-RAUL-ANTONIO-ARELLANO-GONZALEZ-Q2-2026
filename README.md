@@ -55,3 +55,51 @@
   4. The program will print the calculated verification digit and the complete RUT.
 
   ---
+  Classwork 08 — Numerical Integration
+
+  Project description
+
+  This program approximates the definite integral of six different functions over predefined intervals and compares the result to the exact value. The user picks a function, picks a mode, and the program returns the numerical approximation together with the absolute and relative errors. The supported numerical methods are:
+
+  - LRM — Left Riemann (rectangles aligned to the left endpoint of each subinterval).
+  - RRM — Right Riemann (rectangles aligned to the right endpoint).
+  - MPM — Midpoint (rectangles evaluated at the midpoint of each subinterval).
+  - TRAP — Trapezoidal rule.
+
+  Available functions (with their interval and exact integral):
+
+  1. x² + 2x − 3   on [1, 4]            → 27.00
+  2. 3x³ − x² + 5  on [0, 2]            → 21.33
+  3. sin(x)        on [0, π]            → 2.00
+  4. cos(x) + 1    on [0, π/2]          → 2.5708
+  5. exp(x)        on [0, 2]            → 6.3891
+  6. ln(x)         on [1, 3]            → 1.2958
+
+  Available modes:
+
+  1. Default — runs the integral with n = 100 subintervals using the Midpoint method (MPM).
+  2. Custom — the user sets both the number of subintervals n and the method (LRM / RRM / MPM / TRAP).
+  3. Auto-adjust — the user sets a relative error tolerance; the program starts at n = 10 and doubles n each iteration until the relative error falls below the tolerance (or until n > 1,000,000).
+
+  Example output (Default mode, function 3):
+  - Function: math.sin(x)
+  - Interval: [0, 3.141592653589793]
+  - Method: MPM
+  - Subintervals (n): 100
+  - Approximation: 1.99983550
+  - Exact value:   2.00000000
+  - Absolute error: 0.00016450
+  - Relative error: 0.000082 (0.0082%)
+
+  How to run the program
+
+  1. Open a terminal and navigate to the Classwork-08-Numerical-Integration directory:
+  cd "Classwork-08-Numerical-Integration"
+  2. Run the script with Python 3:
+  python3 numerical_integration.py
+  3. When prompted, choose a function (1-6) and a mode (1/2/3). If you pick mode 2 or 3, you will be asked for the number of subintervals, the method, and/or the tolerance.
+  4. The program will print the chosen function, interval, method, number of subintervals, the numerical approximation, the exact value, the absolute error, and the relative error.
+
+  A pseudocode description of the algorithm is available in `PPP.txt`, and a flowchart of the full process is available in `Flowchart.png`.
+
+  ---
