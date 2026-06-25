@@ -103,3 +103,28 @@
   A pseudocode description of the algorithm is available in `PPP.txt`, and a flowchart of the full process is available in `Flowchart.png`.
 
   ---
+  CW09 — Spanish Verb Conjugator
+
+  Project description
+
+  This program conjugates Spanish verbs in the present tense. The user inputs a verb ending in -ar, -er, or -ir, and the program:
+
+  1. Extracts the stem by removing the last two characters from the verb.
+  2. Identifies the verb type (-ar, -er, or -ir) based on the ending.
+  3. Applies the appropriate conjugation endings for each pronoun.
+  4. Displays the conjugated verb for each of the eight Spanish pronouns: yo, tú, él/ella, nosotros, vosotros, ellos/ellas.
+
+  Example:
+  - Input: hablar
+  - Output: yo hablo / tú hablas / él habla / ella habla / nosotros hablamos / vosotros habláis / ellos hablan / ellas hablan
+
+  How to run the program
+
+  1. Open a terminal and navigate to the CW09 directory:
+  cd "CW09"
+  2. Run the script with Python 3:
+  python3 "Spanish verb conjugator.py"
+  3. When prompted, enter a Spanish verb ending in -ar, -er, or -ir (e.g., hablar, comer, escribir).
+  4. The program will print the conjugated verb for each pronoun.
+
+  A pseudocode description of the program is available in `PPP.txt`, and a flowchart of the conjugation process is available in `Flowchart.png`.
