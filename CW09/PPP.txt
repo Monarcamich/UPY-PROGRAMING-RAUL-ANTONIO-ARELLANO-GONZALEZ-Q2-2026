@@ -1,0 +1,34 @@
+# INPUT
+
+  DISPLAY prompt: "Write a Spanish verb (ar, er, ir):"
+  READ verb
+
+# PROCESS
+
+  # Extract the stem (all characters except last 2)
+  stem = verb[0:len(verb)-2]
+
+  # Extract the ending (last 2 characters)
+  ending = verb[len(verb)-2:]
+
+  # Get the appropriate endings based on verb type
+  IF ending == "ar" THEN
+      conjugations = ['o', 'as', 'a', 'amos', 'ais', 'an']
+  ELSE IF ending == "er" THEN
+      conjugations = ['o', 'es', 'e', 'emos', 'eis', 'en']
+  ELSE IF ending == "ir" THEN
+      conjugations = ['o', 'es', 'e', 'imos', 'is', 'en']
+  ELSE
+      DISPLAY "Error: Verb must end in -ar, -er, or -ir"
+      EXIT
+
+  # Define pronouns list
+  pronouns = ["yo", "tu", "el", "ella", "nosotros", "vosotros", "ellos", "ellas"]
+
+# OUTPUT
+
+  FOR index FROM 0 TO 7
+      pronoun = pronouns[index]
+      termination = conjugations[index]
+      DISPLAY pronoun + " " + stem + termination
+  END FOR
