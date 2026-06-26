@@ -1,0 +1,93 @@
+    DISPLAY welcome message
+
+    # Data structures
+    users = dictionary of usernames with password, role, and name
+    subjects = tuple of subject names
+    notes = dictionary of student grades by subject
+
+    #Login Section
+    logged_in = FALSE
+    WHILE logged_in is FALSE
+        INPUT username
+        INPUT password
+        
+        IF username exists in users AND password matches
+            logged_in = TRUE
+            role = user's role
+            DISPLAY welcome message with name and role
+        ELSE
+            DISPLAY "Invalid credentials. Try again."
+        END IF
+    END WHILE
+
+    #Role Section
+    IF role is "student"
+        DISPLAY report card header
+        FOR each subject in subjects
+            DISPLAY subject and grade
+        END FOR
+        
+        approved = empty set
+        FOR each subject in subjects
+            IF grade >= 8.0
+                ADD subject to approved
+            END IF
+        END FOR
+        
+        pending = all subjects MINUS approved
+        DISPLAY approved subjects
+        DISPLAY pending subjects
+        
+    ELSE IF role is "professor"
+        DISPLAY student list
+        FOR each user in users
+            IF user role is "student"
+                DISPLAY student name and username
+            END IF
+        END FOR
+        
+        INPUT student_username
+        WHILE student_username not in notes
+            DISPLAY "Invalid student"
+            INPUT student_username
+        END WHILE
+        
+        DISPLAY available subjects
+        INPUT subject_to_grade
+        WHILE subject_to_grade not in subjects
+            DISPLAY "Invalid subject"
+            INPUT subject_to_grade
+        END WHILE
+        
+        INPUT new_grade
+        UPDATE notes[student_username][subject_to_grade] = new_grade
+        DISPLAY confirmation
+        
+    ELSE IF role is "coordinator"
+        DISPLAY "Coordinator Report"
+        
+        DISPLAY professors list
+        FOR each user in users
+            IF user role is "professor"
+                DISPLAY professor name
+            END IF
+        END FOR
+        
+        DISPLAY subjects list
+        FOR each subject in subjects
+            DISPLAY subject
+        END FOR
+        
+        DISPLAY students and grades
+        FOR each student in notes
+            DISPLAY student name
+            FOR each subject in subjects
+                DISPLAY subject and grade
+            END FOR
+        END FOR
+        
+    ELSE
+        DISPLAY "Unknown role"
+    END IF
+
+END
