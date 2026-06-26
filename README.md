@@ -128,3 +128,55 @@
   4. The program will print the conjugated verb for each pronoun.
 
   A pseudocode description of the program is available in `PPP.txt`, and a flowchart of the conjugation process is available in `Flowchart.png`.
+
+  ---
+
+  CW10 — School Management System
+
+  Project description
+
+  This program manages students, professors, and coordinators in a school system with role-based access. The system uses dictionaries to store users, subjects, and grades, and provides different functionality based on the logged-in user's role:
+
+  - **Student**: View their report card with grades for all 7 subjects, see which subjects are approved (grade ≥ 8.0), and which subjects are pending.
+
+  - **Professor**: View the list of students, select a student and subject to update their grade, and confirm the grade change.
+
+  - **Coordinator**: View the complete list of professors, all subjects, and all students with their grades for each subject.
+
+  Available users (username / password / role):
+
+  - Students: jperez, dromo, mjuarez, mlopez, euc, cbalam (password: 1234)
+  - Professor: jpedrozo (password: 1234)
+  - Coordinator: dgamboa (password: 1234)
+
+  Subjects offered:
+  1. Discrete Mathematics
+  2. Programming
+  3. English II
+  4. Differential Calculus
+  5. Probability and Statistics
+  6. Computer and Server Architecture
+  7. Socio-Emotional Skills and Conflict Management
+
+  Example output (Student role):
+  - Report Card: Juan Pérez
+  - Discrete Mathematics: 8.5
+  - Programming: 9.2
+  - English II: 9.0
+  - Differential Calculus: 7.8
+  - Probability and Statistics: 8.3
+  - Computer and Server Architecture: 6.8
+  - Socio-Emotional Skills and Conflict Management: 9.5
+  - Approved subjects: {Discrete Mathematics, Programming, English II, Probability and Statistics, Socio-Emotional Skills and Conflict Management}
+  - Pending subjects: {Differential Calculus, Computer and Server Architecture}
+
+  How to run the program
+
+  1. Open a terminal and navigate to the Classwork-10-School-management-system.py directory:
+  cd "Classwork-10-School-management-system.py"
+  2. Run the script with Python 3:
+  python3 school_management_system.py
+  3. When prompted, enter your username and password.
+  4. The program will display different options based on your role (student, professor, or coordinator).
+
+  A pseudocode description of the program is available in `PPP.txt`, and a flowchart of the process is available in `Flowcchart.png`.
