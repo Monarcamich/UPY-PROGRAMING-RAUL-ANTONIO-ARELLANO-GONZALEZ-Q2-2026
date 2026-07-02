@@ -1,0 +1,53 @@
+# INPUT
+
+  OPEN config.txt for reading
+  FOR each line in config.txt
+      parameter, value = line.strip().split('=')
+      IF "." in value THEN
+          config[parameter] = float(value)
+      ELSE
+          config[parameter] = int(value)
+      END IF
+  END FOR
+  CLOSE config.txt
+
+  width = config["ancho"]
+  height = config["alto"]
+  max_iter = config["max_iter"]
+  real_min = config["real_min"]
+  real_max = config["real_max"]
+  imag_min = config["imag_min"]
+  imag_max = config["imag_max"]
+
+# PROCESS
+
+  OPEN mandelbrot.csv for writing
+  WRITE "row,column,iterations" to output
+
+  FOR row FROM 0 TO height - 1
+      FOR column FROM 0 TO width - 1
+          # Map pixel to complex number
+          real = real_min + (column / width) * (real_max - real_min)
+          imag = imag_min + (row / height) * (imag_max - imag_min)
+          c = complex(real, imag)
+
+          # Initialize z and iteration count
+          z = 0 + 0j
+          iterations = 0
+
+          # Iterate until escape or max_iter reached
+          WHILE abs(z) < 2 AND iterations < max_iter
+              z = z * z + c
+              iterations = iterations + 1
+          END WHILE
+
+          # Write result to CSV
+          WRITE column, row, iterations to output
+      END FOR
+  END FOR
+
+  CLOSE mandelbrot.csv
+
+# OUTPUT
+
+  DISPLAY "DONE"

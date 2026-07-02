@@ -237,3 +237,44 @@ GIF on Giphy - Original Source
   4. The program will display different options based on your role (student, professor, or coordinator).
 
   A pseudocode description of the program is available in `PPP.txt`, and a flowchart of the process is available in `Flowcchart.png`.
+
+  ---
+
+  Classwork 11 — The Mandelbrot Set
+
+  Project description
+
+  This program generates and visualizes the Mandelbrot set by computing the iteration count for each pixel in a 2D grid. The Mandelbrot set is the set of complex numbers c for which the sequence z(n+1) = z(n)² + c, starting from z(0) = 0, does not diverge to infinity (i.e., |z| remains bounded).
+
+  The program:
+  1. Reads configuration parameters (width, height, coordinate bounds, max iterations) from a config.txt file.
+  2. Maps each pixel to a complex number c using the formula:
+     - real = real_min + (column / width) × (real_max - real_min)
+     - imag = imag_min + (row / height) × (imag_max - imag_min)
+  3. For each pixel, iterates z = z² + c until |z| ≥ 2 or max_iter is reached.
+  4. Records the number of iterations for each pixel in a CSV file.
+
+  Configuration parameters (config.txt):
+  - ancho: width of the image in pixels
+  - alto: height of the image in pixels
+  - real_min, real_max: real axis range (default: -2.0 to 1.0)
+  - imag_min, imag_max: imaginary axis range (default: -1.5 to 1.5)
+  - max_iter: maximum iterations per pixel (default: 100)
+
+  Example output (mandelbrot.csv):
+  - row,column,iterations
+  - 0,0,100
+  - 0,1,98
+  - 1,0,95
+  - ...
+
+  How to run the program
+
+  1. Open a terminal and navigate to the Classwork-11-The-Mandelbrot-Set directory:
+  cd "Classwork-11-The-Mandelbrot-Set"
+  2. (Optional) Edit config.txt to adjust image size, coordinate bounds, or iterations.
+  3. Run the script with Python 3:
+  python3 mandelbrot_set_math.py
+  4. The program will generate a mandelbrot.csv file with iteration counts for each pixel.
+
+  A pseudocode description of the program is available in `PPP.txt`, and a sample output is available in `mandelbrot.csv`.
