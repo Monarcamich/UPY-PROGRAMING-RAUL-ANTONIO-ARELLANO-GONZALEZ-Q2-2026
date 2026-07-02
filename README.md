@@ -1,14 +1,5 @@
 # UPY-PROGRAMING-RAUL-ANTONIO-ARELLANO-GONZALEZ-Q2-2026
 
-
-
-
-
-![alt text](image.png)
-
-
-
-
   ---
   CW07
 
