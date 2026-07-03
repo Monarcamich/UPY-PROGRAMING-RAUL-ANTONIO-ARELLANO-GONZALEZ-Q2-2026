@@ -1,0 +1,52 @@
+    OPEN "config.txt" FOR READING
+    FOR EACH line IN file DO
+        SPLIT line by '='
+        parameter = left side of '='
+        value = right side of '='
+        IF value contains '.' THEN
+            config[parameter] = FLOAT(value)
+        ELSE
+            config[parameter] = INTEGER(value)
+        END IF
+    END FOR
+    CLOSE file
+    PRINT config
+
+    # Read iteration data from CSV
+    OPEN "mandelbrot.csv" FOR READING
+    READ all lines FROM file
+    CLOSE file
+    REMOVE first line (header row: row,column,iterations)
+
+    # Extract configuration variables
+    max_iter = config['max_iter']
+    ancho = config['ancho']
+    alto = config['alto']
+
+    #Create grayscale image
+    CREATE new image WITH mode 'L' (grayscale) AND size (ancho, alto)
+
+    # Map each pixel to brightness
+    FOR EACH line IN lines DO
+        SPLIT line by ','
+        row = INTEGER(first element)
+        column = INTEGER(second element)
+        iterations = INTEGER(third element)
+
+        IF iterations == max_iter THEN
+            # Point is inside the Mandelbrot set
+            brillo = 40  # Black
+        ELSE
+            # Point is outside the set
+            brillo = INTEGER((iterations / max_iter) * 255)
+        END IF
+
+        SET pixel at (column, row) TO brillo
+    END FOR
+
+    # Save the image
+    SAVE image AS "mandelbrot.png"
+    PRINT "DONE"
+
+END
+
