@@ -1,18 +1,25 @@
 import math
 
-# INPUT: read as strings, then convert to numbers
-a_str = input("Write the left endpoint of the interval: ")
-if "pi" in a_str:
-    a = eval(a_str.replace("pi", "math.pi"))
-else:
-    a = float(a_str)
+class IntegrationError(Exception):
+    pass
 
-b_str = input("Write the right endpoint of the interval: ")
-if "pi" in b_str:
-    b = eval(b_str.replace("pi", "math.pi"))
-else:
-    b = float(b_str)
+# Wrap the input section:
+try:
+    a_str = input("Write the left endpoint of the interval: ")
+    if "pi" in a_str:
+        a = eval(a_str.replace("pi", "math.pi"))
+    else:
+        a = float(a_str)
 
+    b_str = input("Write the right endpoint of the interval: ")
+    if "pi" in b_str:
+        b = eval(b_str.replace("pi", "math.pi"))
+    else:
+        b = float(b_str)
+except ValueError:
+    raise IntegrationError("Endpoints must be numbers (or use 'pi').")
+except NameError:
+    raise IntegrationError("Endpoint expression is not valid.")
 f_x = input("Write the function to integrate: ")
 method = input("Select integration method (LRM/RRM/MPM/TM): ")
 
