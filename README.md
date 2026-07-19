@@ -146,8 +146,8 @@
 
   How to run the program
 
-  1. Open a terminal and navigate to the Classwork-10-School-management-system.py directory:
-  cd "Classwork-10-School-management-system.py"
+  1. Open a terminal and navigate to the Classwork-10-School-management-system directory:
+  cd "Classwork-10-School-management-system"
   2. Run the script with Python 3:
   python3 school_management_system.py
   3. When prompted, enter your username and password.
@@ -234,3 +234,85 @@ How to run the program
 4. The program will generate a mandelbrot.png image with the visualization.
 
 A pseudocode description of the program is available in `PPP.txt`, and the visualization output is available in `mandelbrot.png`.
+
+---
+
+Classwork 13 — Error Handling (Re-implementation of CW07, CW08, CW09)
+
+Project description
+
+This classwork re-implements the three previous programs (CW07 Chilean RUT verifier, CW08 numerical integrator, and CW09 Spanish verb conjugator) adding custom exceptions and `try/except` blocks so the programs recover gracefully from invalid user input instead of crashing.
+
+The three scripts are:
+
+- **CW07.py** — Chilean RUT verification digit calculator. Uses a custom `DigitoApocrifoError` exception and a `try/except` around the `rol.split("-")` call so a RUT without the dash prompts "Rol no valido" instead of raising a `ValueError`. After the algorithm runs, it compares the calculated digit with the user-supplied digit and raises `DigitoApocrifoError` if they differ.
+
+- **CW08.py** — Numerical integration of a user-defined function on a user-defined interval. Defines a custom `IntegrationError` exception. The input block wraps the endpoint parsing in `try/except ValueError, NameError` and re-raises them as `IntegrationError("Endpoints must be numbers (or use 'pi').")`. It then supports LRM, RRM, MPM (rectangle methods) and TM (trapezoid) on the function and interval provided by the user.
+
+- **CW09.py** — Spanish verb conjugator. Defines a custom `VerbError` exception. The input loop keeps asking until the user types a verb ending in -ar, -er, or -ir; if it doesn't, the program prints "Invalid verb" and re-prompts. Conjugation logic and output are identical to CW09.
+
+How to run the program
+
+1. Open a terminal and navigate to the Classwork-13-Error-Handling directory:
+   cd "Classwork-13-Error-Handling"
+2. Run any of the three scripts with Python 3, for example:
+   python3 CW07.py
+   python3 CW08.py
+   python3 CW09.py
+3. Follow the on-screen prompts. Each script will re-prompt on invalid input instead of terminating with an unhandled exception.
+
+---
+
+Classwork 14 — Error Handling (Re-implementation of CW10, CW11, CW12)
+
+Project description
+
+This classwork re-implements the three more complex previous programs (CW10 school management system, CW11 Mandelbrot iteration, CW12 Mandelbrot visualization) replacing the raw `open()` / `read()` / `split()` sequences with safer versions that handle missing files and malformed configuration lines.
+
+The three scripts are:
+
+- **school_management_system.py** — Same role-based school system as CW10 (student, professor, coordinator). Adds a validation block so the username/password loop keeps re-prompting until valid credentials are entered, and validates that the chosen student, subject, and grade can be parsed before mutating the grades dictionary.
+
+- **mandelbrot_set_math.py** — Same Mandelbrot iteration as CW11, but the config-parsing block uses a `try/except` to skip blank lines and comment lines starting with `#`, and to handle lines that do not contain a valid `key=value` pair. This prevents the program from crashing on a stray blank line in `config.txt`.
+
+- **mandelbrot_set_vis.py** — Same Mandelbrot visualization as CW12, also guarded against malformed lines in `config.txt` and against `mandelbrot.csv` rows whose column count does not match the expected `fila,columna,iteraciones` format.
+
+How to run the program
+
+1. Open a terminal and navigate to the Classwork-14-Error-Handling directory:
+   cd "Classwork-14-Error-Handling"
+2. For the Mandelbrot scripts, place a `config.txt` in the same directory (see CW11/CW12 for the expected keys) and, for the visualization, the `mandelbrot.csv` produced by the math script.
+3. Run the script you want with Python 3, for example:
+   python3 school_management_system.py
+   python3 mandelbrot_set_math.py
+   python3 mandelbrot_set_vis.py
+4. The program will print a confirmation message when it finishes; malformed config lines or CSV rows are skipped instead of aborting the run.
+
+---
+
+Classwork 15 — Sorting Algorithms Visualization (Bubble, Insertion, Selection)
+
+Project description
+
+This program generates 10 random integers between 0 and 100, sorts them using one of three classic O(n²) sorting algorithms, and animates the sort on screen using `stddraw` (a Python port of `stdlib`/`stddraw`). Each value in the array is drawn as a vertical bar whose height equals the value, and the pair of indices being compared (or the position of the key / the current minimum) is highlighted in red on every step.
+
+The supported algorithms are:
+
+- **Bubble Sort** (`bubble_sort` / `bubble_sort_animated`) — Repeatedly sweeps the array and swaps adjacent elements that are out of order. After each full sweep, the largest unsorted element is guaranteed to be at the end of the array.
+
+- **Insertion Sort** (`insertion_sort` / `insertion_sort_animated`) — Iterates from left to right, taking each element as a "key" and shifting the larger preceding elements one position to the right to make room for it.
+
+- **Selection Sort** (`selection_sort` / `selection_sort_animated`) — Iterates from left to right, finds the minimum of the unsorted suffix, and swaps it into the next position of the sorted prefix.
+
+The non-animated `bubble_sort`, `insertion_sort`, and `selection_sort` functions sort in place without drawing; the `*_animated` variants wrap them with calls to `draw_bars` so each comparison and swap is visible on the canvas. The red highlight is drawn on the pair being compared (bubble), the key being inserted (insertion), or the current minimum and the element being compared (selection).
+
+How to run the program
+
+1. Open a terminal and navigate to the Classwork-15-bubblesort-sorting-Algorithms directory:
+   cd "Classwork-15-bubblesort-sorting-Algorithms"
+2. Run the script with Python 3:
+   python3 boubble-algortithim.py
+3. The console will print `Before sorting: [...]` and then a window will open showing the sorting animation in real time. When the animation finishes, the console prints `After sorting: [...]` and the window remains open.
+4. To try a different algorithm, open the script and comment/uncomment the `bubble_sort_animated`, `insertion_sort_animated`, or `selection_sort_animated` call near the bottom of the file.
+
+A pseudocode description of the program is available in `PPP.txt`, and a flowchart of the process is available in `FLOWCHART.png`. The helper modules `stddraw.py` and `color.py` must stay in the same directory as the main script.

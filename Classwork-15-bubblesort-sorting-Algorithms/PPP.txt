@@ -1,0 +1,45 @@
+# Sorting Algorithms Visualization – Bubble, Insertion, and Selection Sort
+# Generates random numbers, sorts them, and animates the process using stddraw
+
+INPUT
+    # Generate 10 random integers between 0 and 100
+    numbers ← empty list
+    FOR i FROM 0 TO 9
+        numbers.append(random integer between 0 and 100)
+    END FOR
+    
+    Display "Before sorting: " + numbers
+
+PROCESS
+    # Choose sorting algorithm (currently Bubble Sort)
+    # CONFIG - Set canvas size
+    Set X scale from -0.1 to 10.0
+    Set Y scale from -0.5 to (max(numbers) + 1)
+    
+    n ← length of numbers
+    
+    # Bubble Sort (animated)
+    FOR sweep FROM 0 TO n - 1
+        FOR pair FROM 0 TO n - 2 - sweep
+            # Draw bars before comparison
+            draw_bars(numbers, selected=(pair, pair + 1))
+            
+            IF numbers[pair] > numbers[pair + 1] THEN
+                # Swap adjacent elements
+                temp ← numbers[pair]
+                numbers[pair] ← numbers[pair + 1]
+                numbers[pair + 1] ← temp
+                
+                # Draw bars after swap
+                draw_bars(numbers, selected=(pair, pair + 1))
+            END IF
+        END FOR
+    END FOR
+    
+    # Alternative algorithms (commented out in code)
+    # Insertion Sort (animated)
+    # Selection Sort (animated)
+
+OUTPUT
+    Display "After sorting: " + numbers
+    Display visualization on screen
