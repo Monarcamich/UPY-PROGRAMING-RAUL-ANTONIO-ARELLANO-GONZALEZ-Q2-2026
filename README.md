@@ -316,3 +316,39 @@ How to run the program
 4. To try a different algorithm, open the script and comment/uncomment the `bubble_sort_animated`, `insertion_sort_animated`, or `selection_sort_animated` call near the bottom of the file.
 
 A pseudocode description of the program is available in `PPP.txt`, and a flowchart of the process is available in `FLOWCHART.png`. The helper modules `stddraw.py` and `color.py` must stay in the same directory as the main script.
+
+---
+
+Classwork 16 — Recursive Functions
+
+Project description
+
+This program demonstrates classic recursive algorithms and a recursive JSON-flattening utility. Each function is built around a base case that stops the recursion and a recursive case that reduces the problem until the base case is reached. The implemented functions are:
+
+- **recursive(n)** — Counts down from n-1 to 0, printing each value along the way, and returns the string `"Done"` when n ≤ 0.
+
+- **fibonacci(n)** — Returns the n-th Fibonacci number. Base case: n == 0 or n == 1. Recursive case: `fibonacci(n-1) + fibonacci(n-2)`.
+
+- **factorial(n)** — Returns n!. Base case: n == 0 or n == 1 → returns 1. Recursive case: `n * factorial(n-1)`.
+
+- **multiplicacion_recursive(n, m)** — Multiplies n by m using recursion. Base case: m == 0 → returns 0. Recursive case: `n + multiplicacion_recursive(n, m-1)`.
+
+- **division_entera_recursiva(dividendo, divisor)** — Integer division using recursion. Base case: `dividendo - divisor < 0` → returns 0. Recursive case: `division_entera_recursiva(dividendo - divisor, divisor) + 1`.
+
+- **potencia_recursiva(base, exponente)** — Computes base^exponente using recursion. Base case: exponente == 0 → returns 1. Recursive case: `base * potencia_recursiva(base, exponente - 1)`.
+
+- **serie_collatz(n)** — Prints the Collatz sequence starting at n. If n == 1, prints `1` and returns `"END!"`. If n is even, prints `n//2` and recurses on `n//2`. Otherwise prints `3n+1` and recurses on `3n+1`.
+
+- **aplanar_json(diccionario, clave_padre, separador)** — Flattens a nested JSON-like dict into a single-level dict whose keys are dotted paths (default separator `.`). Supports nested dicts (recurses with the accumulated key as `clave_padre`) and lists (each element gets an index suffix, e.g. `g.0.h`). Non-collection values are stored as-is.
+
+The `__main__` block feeds a sample nested JSON to `aplanar_json` and runs each numeric/sequence function with a fixed input so the recursion can be observed in the console.
+
+How to run the program
+
+1. Open a terminal and navigate to the Classwork-16-Recursive-Functions directory:
+   cd "Classwork-16-Recursive-Functions"
+2. Run the script with Python 3:
+   python3 recursive_functions.py
+3. The program will print, in order: `recursive(5)`, `fibonacci(10)`, `factorial(5)`, `multiplicacion_recursive(3, 4)`, `division_entera_recursiva(17, 5)`, `potencia_recursiva(2, 5)`, the Collatz series starting at 6, and the flattened version of the sample JSON.
+
+A pseudocode description of the program is available in `recursive_functions_ppp.txt`.

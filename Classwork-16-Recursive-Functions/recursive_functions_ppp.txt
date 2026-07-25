@@ -1,0 +1,90 @@
+# Recursive Functions
+# Classic recursive algorithms and a recursive JSON-flattening utility
+
+INPUT
+    n ← 5
+    fib_n ← 10
+    fact_n ← 5
+    mul_n ← 3, mul_m ← 4
+    div_dividendo ← 17, div_divisor ← 5
+    pot_base ← 2, pot_exponente ← 5
+    collatz_n ← 6
+    json_prueba ← {
+        "a": 1,
+        "b": {"c": 2, "d": {"e": 3}},
+        "f": [1, 2, 3],
+        "g": [{"h": 4}, {"i": 5}],
+        "j": {"k": [6, 7, {"l": 8}]},
+        "m": None,
+        "n": True,
+        "o": []
+    }
+
+PROCESS
+    recursive(n)
+        IF n <= 0   RETURN "Done"
+        PRINT n - 1
+        RETURN recursive(n - 1)
+
+    fibonacci(n)
+        IF n == 0 OR n == 1   RETURN n
+        RETURN fibonacci(n - 1) + fibonacci(n - 2)
+
+    factorial(n)
+        IF n == 0 OR n == 1   RETURN 1
+        RETURN n * factorial(n - 1)
+
+    multiplicacion_recursive(n, m)
+        IF m == 0   RETURN 0
+        RETURN n + multiplicacion_recursive(n, m - 1)
+
+    division_entera_recursiva(dividendo, divisor)
+        IF dividendo - divisor < 0   RETURN 0
+        RETURN division_entera_recursiva(dividendo - divisor, divisor) + 1
+
+    potencia_recursiva(base, exponente)
+        IF exponente == 0   RETURN 1
+        RETURN base * potencia_recursiva(base, exponente - 1)
+
+    serie_collatz(n)
+        IF n == 1
+            PRINT 1
+            RETURN "END!"
+        IF n % 2 == 0
+            PRINT n // 2
+            RETURN serie_collatz(n // 2)
+        PRINT 3 * n + 1
+        RETURN serie_collatz(3 * n + 1)
+
+    aplanar_json(diccionario, clave_padre ← '', separador ← '.')
+        elementos ← {}
+        FOR key, value IN diccionario
+            nueva_llave ← clave_padre + separador + key  IF clave_padre ELSE key
+            IF value is dict
+                elementos.update(aplanar_json(value, nueva_llave, separador))
+            ELSE IF value is list
+                FOR i, item IN enumerate(value)
+                    llave_lista ← nueva_llave + separador + i
+                    IF item is dict
+                        elementos.update(aplanar_json(item, llave_lista, separador))
+                    ELSE
+                        elementos[llave_lista] ← item
+            ELSE
+                elementos[nueva_llave] ← value
+        RETURN elementos
+
+OUTPUT
+    recursive(5)                         → "Done"
+    fibonacci(10)                        → 55
+    factorial(5)                         → 120
+    multiplicacion_recursive(3, 4)       → 12
+    division_entera_recursiva(17, 5)     → 3
+    potencia_recursiva(2, 5)             → 32
+    serie_collatz(6)                     → 3, 10, 5, 16, 8, 4, 2, 1, "END!"
+    aplanar_json(json_prueba)            → {
+        "a": 1, "b.c": 2, "b.d.e": 3,
+        "f.0": 1, "f.1": 2, "f.2": 3,
+        "g.0.h": 4, "g.1.i": 5,
+        "j.k.0": 6, "j.k.1": 7, "j.k.2.l": 8,
+        "m": None, "n": True
+    }
