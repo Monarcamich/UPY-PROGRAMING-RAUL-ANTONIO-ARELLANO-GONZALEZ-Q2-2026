@@ -1,0 +1,158 @@
+====================================================================
+Classwork #17 - Galaxy Voyage (Part 1)
+Concept, planning, perspective math
+PPP (Pseudocode Programming Process)
+Gabriel Rojas Velazquez
+====================================================================
+
+Galaxy Voyage is a pseudo-3D "endless runner": a ship flies over a
+scrolling track drawn in perspective. Part 1 covers the concept, the
+system decomposition and the first piece of perspective math: the
+vertical lines of the grid, evenly spaced and centered on the screen.
+
+All parameters live in config.txt so nothing is hardcoded.
+
+--------------------------------------------------------------------
+SYSTEM DECOMPOSITION (planning)
+--------------------------------------------------------------------
+    Grid / Perspective  -> Turn a flat set of lines into a 3D corridor
+    Ship                -> Position, hover animation, drawing, input
+    Scroll              -> Move the world toward the player over time
+    Path                -> Which cells are "safe" to fly over
+    Collision           -> Is the ship currently over a safe cell?
+    Game State          -> start -> playing -> game_over / victory
+
+    Part 1 only fills the "Grid / Perspective" box.
+
+--------------------------------------------------------------------
+DATA WE WILL NEED (preview)
+--------------------------------------------------------------------
+    grid   -> list of x positions, list of y positions, vanishing point
+    ship   -> position (x, y), size, color
+    scroll -> offset, speed, elapsed time
+    path   -> which (column, row) cells are currently on track
+    state  -> one label out of a fixed set of game states
+
+    Tuples for fixed pairs (colors, positions), lists for sequences
+    (grid lines), sets for membership tests (path cells).
+
+--------------------------------------------------------------------
+1. CONFIGURATION (reading config.txt)
+--------------------------------------------------------------------
+    INPUT:
+        Open "config.txt" for reading
+
+    PROCESS:
+        config <- empty dictionary
+
+        FOR each line in file
+            parameter, value <- line.strip().split("=")
+
+            IF value contains "," THEN
+                # Tuple of integers, e.g. "255,255,255" -> RGB color
+                config[parameter] <- tuple(int(c) for c in value.split(","))
+            ELIF value contains "." THEN
+                # Float, e.g. "0.1"
+                config[parameter] <- float(value)
+            ELSE
+                # Integer, e.g. "800"
+                config[parameter] <- int(value)
+            END IF
+        END FOR
+        Close file
+
+    OUTPUT:
+        config dictionary with:
+            width, height          -> integers
+            line_color, bg_color   -> tuples (R, G, B)
+            space                  -> float
+            vertical_lines         -> integer
+
+--------------------------------------------------------------------
+2. calculate_x_positions(surface, vertical_lines, space)
+--------------------------------------------------------------------
+    INPUT:
+        surface        -> the Pygame surface (gives us the width)
+        vertical_lines -> how many lines to draw
+        space          -> separation as a fraction of the width
+
+    PROCESS:
+        x_positions  <- empty list
+        width        <- surface.get_width()
+        spacing      <- space * width
+        central_line <- width / 2
+        offset       <- -int(vertical_lines / 2)
+
+        # The offset starts negative so the lines grow outward from
+        # the center: with 7 lines the offsets are -3..3, which puts
+        # one line exactly on central_line and three on each side.
+
+        FOR i FROM 0 TO vertical_lines - 1
+            x_positions.append(central_line + offset * spacing)
+            offset <- offset + 1
+        END FOR
+
+    OUTPUT:
+        RETURN x_positions
+        # With width=800, space=0.1, vertical_lines=7:
+        # spacing = 80, central_line = 400, offsets = -3..3
+        # -> [160.0, 240.0, 320.0, 400.0, 480.0, 560.0, 640.0]
+
+--------------------------------------------------------------------
+3. draw_vertical_lines(surface, x_positions, color, width=2)
+--------------------------------------------------------------------
+    INPUT:
+        surface     -> where to draw
+        x_positions -> list returned by calculate_x_positions
+        color       -> tuple (R, G, B)
+        width       -> line thickness in pixels (default 2)
+
+    PROCESS:
+        height <- surface.get_height()
+
+        FOR each x in x_positions
+            Draw line from (x, 0) to (x, height) with color and width
+        END FOR
+
+    OUTPUT:
+        The lines drawn on the surface (nothing returned)
+
+--------------------------------------------------------------------
+4. MAIN PROGRAM
+--------------------------------------------------------------------
+    INPUT:
+        config dictionary (from step 1)
+
+    PROCESS:
+        pygame.init()
+        screen <- pygame.display.set_mode(width, height)
+
+        x_positions <- calculate_x_positions(screen, vertical_lines, space)
+        Display x_positions          # sanity check: read the raw numbers
+                                     # before trusting what is drawn
+
+        running <- True
+        WHILE running
+            FOR each event in pygame.event.get()
+                IF event.type = QUIT THEN
+                    running <- False
+                END IF
+            END FOR
+
+            screen.fill(bg_color)
+            draw_vertical_lines(screen, x_positions, line_color)
+            pygame.display.flip()
+        END WHILE
+
+        pygame.quit()
+
+    OUTPUT:
+        A window showing vertical lines, evenly spaced and centered.
+        These lines are the base of the perspective grid: in Part 2
+        they will converge toward a vanishing point.
+
+--------------------------------------------------------------------
+NEXT STEPS (Parts 2 and 3)
+--------------------------------------------------------------------
+    Part 2 -> Ship, movement, scrolling, collision (playable prototype)
+    Part 3 -> Modularization and functional paradigm
